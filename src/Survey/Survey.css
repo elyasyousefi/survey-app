@@ -1,34 +1,45 @@
-.survey-header{
-    display: flex;
-    justify-content: space-around;
-    padding: 0 1rem;
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 1rem;
-    padding: 1rem 2rem;
+.survey-header {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 1rem;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
 }
-.question-box{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.question-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.survey-footer{
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 1rem;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4rem;
+.survey-footer {
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
 }
 
-.option-box{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.option-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-.question-content{
-    margin: 1rem auto;
-
+.question-content {
+  margin: 1rem auto;
+}
+.survey-footer span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.survey-footer button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.survey-footer p {
+margin: 0px;
 }
