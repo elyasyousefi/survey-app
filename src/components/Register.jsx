@@ -1,10 +1,10 @@
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import * as formik from 'formik';
-import * as yup from 'yup';
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Row from "react-bootstrap/Row";
+import * as formik from "formik";
+import * as yup from "yup";
 
 function Register() {
   const { Formik } = formik;
@@ -16,7 +16,7 @@ function Register() {
     city: yup.string().required(),
     state: yup.string().required(),
     zip: yup.string().required(),
-    terms: yup.bool().required().oneOf([true], 'Terms must be accepted'),
+    terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
   });
 
   return (
@@ -24,17 +24,17 @@ function Register() {
       validationSchema={schema}
       onSubmit={console.log}
       initialValues={{
-        firstName: 'Mark',
-        lastName: 'Otto',
-        username: '',
-        city: '',
-        state: '',
-        zip: '',
+        firstName: "",
+        lastName: "",
+        username: "",
+        city: "",
+        state: "",
+        zip: "",
         terms: false,
       }}
     >
       {({ handleSubmit, handleChange, values, touched, errors }) => (
-        <Form noValidate dir='rtl' onSubmit={handleSubmit}>
+        <Form noValidate dir="rtl" onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationFormik01">
               <Form.Label>نام</Form.Label>
@@ -123,11 +123,12 @@ function Register() {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
+          <span>محدودیت زمانی شما برای پاسخگویی 2 دقیقه می باشد </span>
           <Form.Group className="mb-3">
             <Form.Check
               required
               name="terms"
-              label="محدودیت زمانی شما برای پاسخگویی 2 دقیقه می باشد ، پذیرش شرایط و قوانین نظرسنجی ."
+              label="پذیرش شرایط و قوانین نظرسنجی "
               onChange={handleChange}
               isInvalid={!!errors.terms}
               feedback={errors.terms}

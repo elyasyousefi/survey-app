@@ -1,0 +1,7 @@
+.form-check {
+ display: flex !important;
+ justify-content: start;
+ align-items: center;
+ margin: 2rem 0;
+ gap: 2rem;
+}

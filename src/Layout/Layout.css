@@ -1,0 +1,11 @@
+.layout{
+    background-color: rgba(211, 211, 211, 0.159);
+    padding: 2rem 8rem;
+    height: 100vh;
+}
+
+@media screen and (max-width:480px) {
+    .layout{
+      padding: 2rem;
+    }
+}
