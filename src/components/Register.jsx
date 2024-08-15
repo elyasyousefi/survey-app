@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import * as formik from "formik";
 import * as yup from "yup";
+import { useState } from "react";
 
 function Register() {
   const { Formik } = formik;
@@ -12,13 +13,26 @@ function Register() {
   const schema = yup.object().shape({
     firstName: yup.string().required(),
     lastName: yup.string().required(),
-    username: yup.string().required(),
+    email: yup.string().required(),
     city: yup.string().required(),
     state: yup.string().required(),
     zip: yup.string().required(),
-    terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
+    terms: yup.bool().required().oneOf([true], "شرایط و قوانین را تایید کنید"),
   });
 
+  const registerData = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const profileData = {
+      firstname: formData.get("firstName"),
+      lastname: formData.get("lastName"),
+      email: formData.get("email"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      zip: formData.get("zip"),
+    };
+    console.log("profileData::", profileData);
+  };
   return (
     <Formik
       validationSchema={schema}
@@ -34,7 +48,7 @@ function Register() {
       }}
     >
       {({ handleSubmit, handleChange, values, touched, errors }) => (
-        <Form noValidate dir="rtl" onSubmit={handleSubmit}>
+        <Form noValidate dir="rtl" onSubmit={registerData}>
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationFormik01">
               <Form.Label>نام</Form.Label>
@@ -66,13 +80,13 @@ function Register() {
                   type="email"
                   placeholder="Email"
                   aria-describedby="inputGroupPrepend"
-                  name="username"
-                  value={values.username}
+                  name="email"
+                  value={values.email}
                   onChange={handleChange}
-                  isInvalid={!!errors.username}
+                  isInvalid={!!errors.email}
                 />
                 <Form.Control.Feedback type="invalid">
-                  {errors.username}
+                  {errors.email}
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>

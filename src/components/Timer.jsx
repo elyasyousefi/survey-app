@@ -23,7 +23,7 @@ const Timer = () => {
       }
     }, 1000);
 
-    return () => clearInterval(timer); // Clear interval on component unmount
+    return () => clearInterval(timer);
   }, [minute, second, startTime]);
 
   return (
