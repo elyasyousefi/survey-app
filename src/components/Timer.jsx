@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 
 const Timer = () => {
   const surveyTime = { minute: 2, second: 0 };
   const [minute, setMinute] = useState(surveyTime.minute);
   const [second, setSecond] = useState(surveyTime.second);
   const [finishTime, setFinishTime] = useState(false);
-  const [startTime, setStartTime] = useState(false);
 
   useEffect(() => {
-    if (!startTime) return;
+    const savedTime = localStorage.getItem("surveyTime");
+    if (savedTime) {
+      const parsedSavedTime = new Date(savedTime);
+      const currentTime = new Date();
+      const timeDifference = Math.floor((currentTime - parsedSavedTime) / 1000);
+      const remainingTime = surveyTime.minute * 60 + surveyTime.second - timeDifference;
+
+      if (remainingTime <= 0) {
+        setFinishTime(true);
+        localStorage.setItem("finishsurvey","finished");
+        window.location.href = '/thanks'
+        return;
+      }
+
+      setMinute(Math.floor(remainingTime / 60));
+      setSecond(remainingTime % 60);
+    }
 
     const timer = setInterval(() => {
       if (second > 0) {
-        setSecond(second - 1);
+        setSecond((prevSecond) => prevSecond - 1);
       } else if (minute > 0) {
-        setMinute(minute - 1);
+        setMinute((prevMinute) => prevMinute - 1);
         setSecond(59);
       } else {
         setFinishTime(true);
@@ -23,19 +37,22 @@ const Timer = () => {
       }
     }, 1000);
 
+    if (!savedTime) {
+      const startSurvey = new Date();
+      localStorage.setItem("surveyTime", startSurvey.toString());
+    }
+
     return () => clearInterval(timer);
-  }, [minute, second, startTime]);
+  }, [minute, second]);
 
   return (
     <div>
       <div>
-        <span>{minute.toString().padStart(2, '0')}</span>
+        <span>{minute.toString().padStart(2, "0")}</span>
         <span>{":"}</span>
-        <span>{second.toString().padStart(2, '0')}</span>
+        <span>{second.toString().padStart(2, "0")}</span>
       </div>
-      <Button onClick={() => setStartTime(true)} variant="primary">
-        {"شروع نظرسنجی"}
-      </Button>
+      {finishTime && <div>Time is up!</div>}
     </div>
   );
 };

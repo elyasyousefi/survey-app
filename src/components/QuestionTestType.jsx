@@ -11,18 +11,21 @@ const QuestionTestType = ({ options}) => {
   };
 
   const registerData = useCallback(() => {
-    const existingResults = localStorage.getItem("Results");
-    const parsedResults = existingResults ? JSON.parse(existingResults) : {};
-    let updatedResults = { ...parsedResults };
-    updatedResults.test = options[selectedOption];
-    localStorage.setItem("Results", JSON.stringify(updatedResults));
-    console.log("allAnswers are:", updatedResults);
-    setIsSaved(true);
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      const ParsedsavedUser = JSON.parse(savedUser);
+      let parsedResults = { ...ParsedsavedUser };
+      parsedResults.answers.test = { test: options[selectedOption] };
+      let updatedResults = { ...parsedResults };
+      localStorage.setItem("user", JSON.stringify(updatedResults));
+      setIsSaved(true);
+      console.log("allAnswers are:", updatedResults);
+    }
   }, [options, selectedOption]);
 
   return (
     <>
-      <div>
+      <div className="test-box">
         {options.map((option, index) => (
           <div key={index} className="option-box">
             <FormCheck
@@ -38,7 +41,7 @@ const QuestionTestType = ({ options}) => {
       <Button type="submit" onClick={registerData}>
         ثبت پاسخ
       </Button>
-      {isSaved && <span>پاسخ شما ثبت شد.</span>}
+      {isSaved && <span className="message-span" >پاسخ شما ثبت شد.</span>}
     </>
   );
 };

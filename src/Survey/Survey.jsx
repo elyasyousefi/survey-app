@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import Questions from "../data/questions";
 import QuestionTestType from "../components/QuestionTestType";
 import QuestionDescriptiveType from "../components/QuestionDescriptiveType";
@@ -9,18 +9,13 @@ import SurveyFooter from "../components/SurveyFooter";
 
 const Survey = () => {
   const [questionType, setQuestionType] = useState("test");
-  const [page, setPage] = useState(1);
   const [title, setTitle] = useState("سوال تستی");
   const [questionOptions, setQuestionOptions] = useState([]);
-  const [finish, setFinish] = useState(false);
+  const [newAnswerChange, setNewAnswerChange] = useState(false);
 
   const Question = Questions.find(({ type }) => type === questionType);
 
   useEffect(() => {
-    // const StorageResults = localStorage.getItem("Results");
-    // const PreResults = StorageResults ? JSON.parse(StorageResults) : [];
-    // setPreStorageResults(Array.isArray(PreResults) ? PreResults : []);
-
     if (Question) {
       if (questionType === "test") {
         setTitle("سوال تستی");
@@ -47,13 +42,14 @@ const Survey = () => {
 
   return (
     <>
-      <SurveyHeader />
+      <SurveyHeader questionType={questionType} newAnswerChange={newAnswerChange} />
       <div className="question-content">
         <h3>{title}:</h3>
         {Question && <p>{Question.contents.main}</p>}
         {questionType === "test" && (
           <QuestionTestType
             options={questionOptions}
+            setNewAnswerChange={setNewAnswerChange}
           />
         )}
         {questionType === "descriptive" && (
@@ -68,7 +64,6 @@ const Survey = () => {
       <SurveyFooter
         questionType={questionType}
         setQuestionType={setQuestionType}
-        setFinish={setFinish}
       />
     </>
   );

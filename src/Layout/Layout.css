@@ -1,7 +1,10 @@
 .layout {
   background-color: rgba(211, 211, 211, 0.159);
-  padding: 2rem 8rem;
+  padding: 5vh 25vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 480px) {
@@ -11,5 +14,15 @@
   .survey-footer {
     flex-direction: column;
     gap: 0.2rem !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .survey-footer {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .layout {
+    padding: 5vh 10vw;
   }
 }

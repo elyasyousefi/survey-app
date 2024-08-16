@@ -24,8 +24,10 @@ function Register() {
   const registerData = useCallback((event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const savedProfile = localStorage.getItem("profileData");
-    const ParsedSavedProfile = savedProfile ? JSON.parse(savedProfile) : {};
+    const savedUser = localStorage.getItem("user");
+    const ParsedsavedUser = savedUser
+      ? JSON.parse(savedUser)
+      : { profileData: {}, answers: { test: "", descriptive: "", blank: "" } };
 
     const profileData = {
       id: crypto.randomUUID(),
@@ -37,8 +39,8 @@ function Register() {
       zip: formData.get("zip"),
     };
 
-    if (ParsedSavedProfile.email === profileData.email) {
-      console.log(ParsedSavedProfile, "&&", profileData.email);
+    if (ParsedsavedUser.profileData.email === profileData.email) {
+      console.log(ParsedsavedUser, "&&", profileData.email);
       setErrorMessage("قبلا فردی با این ایمیل در نظرسنجی شرکت کرده است");
       setConfirmMessage("");
       return console.error("قبلا فردی با این ایمیل در نظرسنجی شرکت کرده است");
@@ -49,15 +51,21 @@ function Register() {
     );
 
     console.log("profileData:", profileData.id);
-    localStorage.setItem("profileData", JSON.stringify(profileData));
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        profileData: profileData,
+        answers: { test: "", descriptive: "", blank: "" },
+      })
+    );
   }, []);
 
-  const startSurvey = () => {
-    const savedProfile = localStorage.getItem("profileData");
-    const ParsedSavedProfile = JSON.parse(savedProfile);
-    console.log("ParsedSavedProfile:", ParsedSavedProfile.id);
-    return ParsedSavedProfile.email;
-  };
+  // const startSurvey = () => {
+  //   const savedProfile = localStorage.getItem("profileData");
+  //   const ParsedSavedProfile = JSON.parse(savedProfile);
+  //   console.log("ParsedSavedProfile:", ParsedSavedProfile.id);
+  //   return ParsedSavedProfile.email;
+  // };
   return (
     <>
       <Formik
@@ -176,7 +184,7 @@ function Register() {
                 id="validationFormik0"
               />
             </Form.Group>
-            <Button type="submit">ثبت نام </Button>
+            {!confirmMessage && <Button type="submit">ثبت نام </Button>}
           </Form>
         )}
       </Formik>
@@ -190,7 +198,9 @@ function Register() {
           <div className="alert alert-success" role="alert">
             {confirmMessage}
           </div>
-          <Button href="/survey" type="submit">شروع پاسخگویی به سوالات نظرسنجی </Button>
+          <Button href="/survey" type="submit">
+            شروع پاسخگویی به سوالات نظرسنجی{" "}
+          </Button>
         </>
       )}
     </>

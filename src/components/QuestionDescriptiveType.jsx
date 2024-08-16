@@ -6,14 +6,16 @@ const QuestionDescriptiveType = () => {
   const answerBoxRef = useRef(null);
   const [isSaved, setIsSaved] = useState(false);
   const registerData = useCallback(() => {
-    const existingResults = localStorage.getItem("Results");
-    const parsedResults = existingResults ? JSON.parse(existingResults) : {};
-    let updatedResults = { ...parsedResults };
-    //set descriptive answer
-    updatedResults.descriptive = answerBoxRef.current.value;
-    localStorage.setItem("Results", JSON.stringify(updatedResults));
-    console.log("allAnswers are:", updatedResults);
-    setIsSaved(true);
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      const ParsedsavedUser = JSON.parse(savedUser);
+      let parsedResults = { ...ParsedsavedUser};
+      parsedResults.answers.descriptive = { descriptive: answerBoxRef.current.value };
+      let updatedResults = { ...parsedResults };
+      localStorage.setItem("user", JSON.stringify(updatedResults));
+      setIsSaved(true);
+      console.log("allAnswers are:", updatedResults);
+    }
   }, []);
 
   return (
@@ -29,7 +31,7 @@ const QuestionDescriptiveType = () => {
       <Button type="submit" onClick={registerData}>
         ثبت پاسخ
       </Button>
-      {isSaved && <span>پاسخ شما ثبت شد.</span>}
+      {isSaved && <span className="message-span">پاسخ شما ثبت شد.</span>}
     </>
   );
 };

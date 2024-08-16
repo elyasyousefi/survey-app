@@ -1,52 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 
-const SurveyFooter = ({ questionType, setQuestionType, setFinish }) => {
-  const preButton = useRef(null);
-  const [preButtonName, setPreButtonName] = useState('');
-  const [nextButtonName, setNextButtonName] = useState('');
-
-  useEffect(() => {
-    if (questionType === 'test') {
-      preButton.current.classList.add('hideButton');
-      setPreButtonName('');
-      setNextButtonName('سوالات تشریحی');
-    } else if (questionType === 'descriptive') {
-      preButton.current.classList.remove('hideButton');
-      setPreButtonName('سوالات تستی');
-      setNextButtonName('سوالات جای خالی');
-    } else if (questionType === 'blank') {
-      preButton.current.classList.remove('hideButton');
-      setPreButtonName('سوالات تشریحی');
-      setNextButtonName('پایان آزمون');
-    }
-  }, [questionType]);
-
-  const actionPreButton = useCallback(() => {
-    if (questionType === 'descriptive') {
-      setQuestionType("test");
-    } else if (questionType === 'blank') {
-      setQuestionType("descriptive");
-    }
-  }, [questionType, setQuestionType]);
-
-  const actionNextButton = useCallback(() => {
-    if (questionType === 'test') {
-      setQuestionType("descriptive");
-    } else if (questionType === 'descriptive') {
-      setQuestionType("blank");
-    } else if (questionType === 'blank') {
-      setFinish(true);
-    }
-  }, [questionType, setQuestionType, setFinish]);
-
+const SurveyFooter = ({ setQuestionType }) => {
   return (
     <div className="survey-footer">
-      <Button ref={preButton} onClick={actionPreButton} variant="primary">
-        <span>{preButtonName}</span>
+      <Button onClick={() => setQuestionType("test")} variant="primary">
+        <span>سوال 1</span>
       </Button>
-      <Button onClick={actionNextButton} variant="primary">
-        <span>{nextButtonName}</span>
+      <Button onClick={() => setQuestionType("descriptive")} variant="primary">
+        <span>سوال 2</span>
+      </Button>
+      <Button onClick={() => setQuestionType("blank")} variant="primary">
+        <span>سوال 3 </span>
+      </Button>
+      <Button href="/thanks" variant="primary">
+        <span>پایان آزمون</span>
       </Button>
     </div>
   );
