@@ -2,20 +2,22 @@ import React, { useCallback, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-const QuestionDescriptiveType = ({ saveAnswer,setIsSaved }) => {
+const QuestionDescriptiveType = () => {
   const answerBoxRef = useRef(null);
-
-  const registerData = useCallback(
-    (event) => {
-      event.preventDefault();
-      saveAnswer(answerBoxRef.current.value);
-      setIsSaved(true);
-    },
-    [saveAnswer]
-  );
+  const [isSaved, setIsSaved] = useState(false);
+  const registerData = useCallback(() => {
+    const existingResults = localStorage.getItem("Results");
+    const parsedResults = existingResults ? JSON.parse(existingResults) : {};
+    let updatedResults = { ...parsedResults };
+    //set descriptive answer
+    updatedResults.descriptive = answerBoxRef.current.value;
+    localStorage.setItem("Results", JSON.stringify(updatedResults));
+    console.log("allAnswers are:", updatedResults);
+    setIsSaved(true);
+  }, []);
 
   return (
-    <form onSubmit={registerData}>
+    <>
       <Form.Control
         ref={answerBoxRef}
         onFocus={() => {
@@ -24,7 +26,11 @@ const QuestionDescriptiveType = ({ saveAnswer,setIsSaved }) => {
         as="textarea"
         aria-label="With textarea"
       />
-    </form>
+      <Button type="submit" onClick={registerData}>
+        ثبت پاسخ
+      </Button>
+      {isSaved && <span>پاسخ شما ثبت شد.</span>}
+    </>
   );
 };
 
