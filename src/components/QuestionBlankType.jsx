@@ -31,7 +31,7 @@ const QuestionBlankType = ({ options }) => {
   }, []);
 
   return (
-    <>
+    <div className="animation">
       <div className="blank-box">
         <div>
           {options.map((option, index) => (
@@ -110,7 +110,7 @@ const QuestionBlankType = ({ options }) => {
         ثبت پاسخ
       </Button>
       {isSaved && <span className="message-span">پاسخ شما ثبت شد.</span>}
-    </>
+    </div>
   );
 };
 

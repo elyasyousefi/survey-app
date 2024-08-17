@@ -24,7 +24,7 @@ const QuestionTestType = ({ options}) => {
   }, [options, selectedOption]);
 
   return (
-    <>
+    <div className="animation">
       <div className="test-box">
         {options.map((option, index) => (
           <div key={index} className="option-box">
@@ -42,7 +42,7 @@ const QuestionTestType = ({ options}) => {
         ثبت پاسخ
       </Button>
       {isSaved && <span className="message-span" >پاسخ شما ثبت شد.</span>}
-    </>
+    </div>
   );
 };
 

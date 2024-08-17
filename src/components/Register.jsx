@@ -60,14 +60,8 @@ function Register() {
     );
   }, []);
 
-  // const startSurvey = () => {
-  //   const savedProfile = localStorage.getItem("profileData");
-  //   const ParsedSavedProfile = JSON.parse(savedProfile);
-  //   console.log("ParsedSavedProfile:", ParsedSavedProfile.id);
-  //   return ParsedSavedProfile.email;
-  // };
   return (
-    <>
+    <div className="register-box">
       <Formik
         validationSchema={schema}
         onSubmit={console.log}
@@ -203,7 +197,7 @@ function Register() {
           </Button>
         </>
       )}
-    </>
+    </div>
   );
 }
 

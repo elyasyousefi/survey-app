@@ -19,7 +19,7 @@ const QuestionDescriptiveType = () => {
   }, []);
 
   return (
-    <>
+    <div className="animation">
       <Form.Control
         ref={answerBoxRef}
         onFocus={() => {
@@ -32,7 +32,7 @@ const QuestionDescriptiveType = () => {
         ثبت پاسخ
       </Button>
       {isSaved && <span className="message-span">پاسخ شما ثبت شد.</span>}
-    </>
+    </div>
   );
 };
 

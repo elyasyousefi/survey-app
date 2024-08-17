@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Questions from "../data/questions";
 import QuestionTestType from "../components/QuestionTestType";
 import QuestionDescriptiveType from "../components/QuestionDescriptiveType";
@@ -42,8 +42,11 @@ const Survey = () => {
 
   return (
     <>
-      <SurveyHeader questionType={questionType} newAnswerChange={newAnswerChange} />
-      <div className="question-content">
+      <SurveyHeader
+        questionType={questionType}
+        newAnswerChange={newAnswerChange}
+      />
+      <div className="question-content animation">
         <h3>{title}:</h3>
         {Question && <p>{Question.contents.main}</p>}
         {questionType === "test" && (
@@ -52,13 +55,9 @@ const Survey = () => {
             setNewAnswerChange={setNewAnswerChange}
           />
         )}
-        {questionType === "descriptive" && (
-          <QuestionDescriptiveType/>
-        )}
+        {questionType === "descriptive" && <QuestionDescriptiveType />}
         {questionType === "blank" && (
-          <QuestionBlankType
-            options={questionOptions}
-          />
+          <QuestionBlankType options={questionOptions} />
         )}
       </div>
       <SurveyFooter

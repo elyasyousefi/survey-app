@@ -43,16 +43,16 @@ const Timer = () => {
     }
 
     return () => clearInterval(timer);
-  }, [minute, second]);
+  }, [minute, second, surveyTime.minute,surveyTime.second]);
 
   return (
-    <div>
+    <div className="timer">
       <div>
         <span>{minute.toString().padStart(2, "0")}</span>
         <span>{":"}</span>
         <span>{second.toString().padStart(2, "0")}</span>
       </div>
-      {finishTime && <div>Time is up!</div>}
+      {finishTime && <span className="timer-warning">زمان شما به پایان رسید</span>}
     </div>
   );
 };

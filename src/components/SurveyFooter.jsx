@@ -14,7 +14,7 @@ const SurveyFooter = ({ setQuestionType }) => {
         <span>سوال 3 </span>
       </Button>
       <Button href="/thanks" variant="primary">
-        <span>پایان آزمون</span>
+        <span>پایان </span>
       </Button>
     </div>
   );
